@@ -87,6 +87,30 @@ function start() {
                 })
             })
         }
+        if(data.position === "Intern"){
+            inquirer.prompt([
+                {
+                    type: "input",
+                    name: "school",
+                    message: "Please enter the name of the intern's school."
+                }
+            ]).then(function(internData){
+                const newIntern = new Intern(data.name,data.id,data.email,internData.school)
+                employees.push(newIntern)
+                inquirer.prompt({
+                    type: "list",
+                    name: "yesno",
+                    choices: ["YES", "NO"],
+                    message: "Would you like to add more employees?"
+                }).then(function(response){
+                    if(response.yesno === "YES"){
+                        start()
+                    }else{
+                        createTeam()
+                    }
+                })
+            })
+        }
     })
 }
 function createTeam() {
